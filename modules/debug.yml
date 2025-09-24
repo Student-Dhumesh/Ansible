@@ -1,0 +1,6 @@
+---
+- name: Debug Module
+  hosts: webserver
+  tasks: 
+  - name: Debug
+    debug: msg="Alright!"

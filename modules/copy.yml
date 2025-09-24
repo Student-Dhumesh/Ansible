@@ -1,0 +1,18 @@
+---
+- name: Copy Module
+  hosts: webserver
+  tasks: 
+  - name: Coping file from control-node to managed-node
+    copy:
+      src: /data/hello.txt
+      dest: /tmp/rcat/ 
+      owner: student  # optional
+      group: students # optional
+      mode: 0777      # optional
+      backup: true    # optional
+
+# Note: create a file /data/hello.txt
+# You can use mkdir -p /data/hello.txt on control-node
+# Also /tmp/rcat/ folder should be available on remote server
+# On remote server should be exist
+# On remote server group should be exist

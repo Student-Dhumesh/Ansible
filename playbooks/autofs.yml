@@ -1,0 +1,35 @@
+---
+- name: configure autofs server
+  hosts: serverb
+  tasks: 
+    - name: install nfs-utils & autofs
+      yum:
+        name: [nfs-utils, autofs]
+        state: present
+
+    - name: manage autofs service
+      service:
+        name: autofs.service
+        state: started
+        enabled: true
+    
+    - name: create custom configuration file
+      lineinfile:
+        path: /etc/auto.master.d/test.autofs
+        line: /-  /etc/auto.misc
+        created: yes
+
+    - name: modify /etc/auto.misc
+      lineinfile: 
+        path: /etc/auto.misc
+        line: /data -rw,soft,intr ip:/nfs_share
+
+    - name: create mount point 
+      file: 
+        path: /data
+        state: directory
+
+    - name: restart autofs service
+      service:
+        name: autofs.service
+        state: restarted

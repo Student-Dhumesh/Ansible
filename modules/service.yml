@@ -1,0 +1,9 @@
+---
+- name: Service Module
+  hosts: webserver
+  tasks: 
+  - name: Starting nginx service
+    service:
+      name: nginx
+      state: started
+      enabled: true

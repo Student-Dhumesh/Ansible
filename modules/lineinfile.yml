@@ -1,0 +1,8 @@
+---
+- name: lineinfile module
+  hosts: webserver
+  tasks: 
+    - name: Add line in existing files 
+      lineinfile:
+        path: /tmp/rcat/rcat.txt
+        line: print("Hello World")

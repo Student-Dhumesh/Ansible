@@ -1,0 +1,37 @@
+---
+- name: configure nfs server
+  hosts: servera
+  tasks:
+    - name: installing nfs-utils
+      yum: 
+        name: nfs-utils
+        state: present
+      
+    - name: start and enable nfs service
+      service:
+        name: nfs-server.service
+        state: started
+        enabled: true
+
+    - name: add 2049/tcp port on firewall
+      firewalld:
+        port: 2049/tcp
+        state: enabled
+        permanent: true
+        immediate: true
+
+    - name: create sharing directory
+      file: 
+        path: /nfs_share
+        state: directory
+        mode: 0777
+
+    - name: modify nfs configuration file
+      lineinfile:
+        path: /etc/exports
+        line: /nfs_share  ip(rw,sync)
+
+    - name: relaoad nfs configuration file
+      shell:
+        cmd: exportfs -rv 
+

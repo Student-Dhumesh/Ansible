@@ -1,0 +1,6 @@
+---
+- name: Ping Module
+  hosts: webserver
+  tasks: 
+  - name: Test Connectivity
+    ping:

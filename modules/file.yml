@@ -1,0 +1,22 @@
+---
+- name: File Module
+  hosts: webserver
+  tasks: 
+  - name: Creating directory on remote servers
+    file: 
+      path: /tmp/rcat
+      state: directory
+      mode: '0644'  # optional
+      owner: root   # optional
+      group: root   # optional
+
+  - name: Creating file on remote servers
+    file: 
+      path: /tmp/rcat/file.txt
+      state: touch
+      mode: '0644'  # optional
+      owner: root   # optional
+      group: root   # optional
+
+# If you want delete just set state: absent
+# At the time of deletion mode, owner, group is not necessary
