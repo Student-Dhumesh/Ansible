@@ -1,0 +1,26 @@
+---
+- name: Create a web content directory
+  hosts: dev
+  vars:
+    group: webdev
+    src: /webdev
+    mode: 2775
+    dest: /var/www/html/webdev
+
+  tasks: 
+    - name: Creating webdev group
+      group:
+        name: "{{group}}"
+        state: present
+
+    - name: Creating "{{src}}" directory
+      file:
+        path: "{{src}}"
+        group: "{{group}}"
+        mode: "{{mode}}"
+
+    - name: Creating a symbolic link
+      file:
+        src: "{{src}}"
+        dest: "{{dest}}"
+        state: link

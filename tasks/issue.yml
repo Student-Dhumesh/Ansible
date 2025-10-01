@@ -1,0 +1,38 @@
+---
+- name: Creating file /etc/issue
+  hosts: all
+  tasks:
+    - name: Creating file
+      file:
+        path: /etc/issue
+        state: present
+
+- name: Replace /etc/issue content
+  hosts: dev
+  vars:
+    line: "Development"
+  tasks:
+    - name: Replacing /etc/issue content
+      lineinfile:
+        path: /etc/issue
+        line: "{{line}}"
+
+- name: Replace /etc/issue content
+  hosts: test
+  vars:
+    line: "Test"
+  tasks:
+    - name: Replacing /etc/issue content
+      lineinfile:
+        path: /etc/issue
+        line: "{{line}}"
+
+- name: Replace /etc/issue content
+  hosts: prod
+  vars:
+    line: "Production"
+  tasks:
+    - name: Replacing /etc/issue content
+      lineinfile:
+        path: /etc/issue
+        line: "{{line}}"

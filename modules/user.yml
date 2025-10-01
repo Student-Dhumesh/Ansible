@@ -1,0 +1,15 @@
+---
+- name: User Module
+  hotst: webserver
+  tasks: 
+    - name: Creating User 
+      user:
+        name: alex
+        uid: 2000
+        state: present
+        group: # Primary
+        groups: # Secondary or Supplementary
+        password: alex123
+        home: /home/alex
+        shell: /bin/bash
+        
